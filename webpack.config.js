@@ -1,52 +1,59 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const moduleFederationPlugin = require('./webpack-mf.config')
 
-module.exports = {
-  output: {
-    publicPath: 'http://localhost:8080/',
-  },
+module.exports = (env, args) => {
+  require('dotenv').config({
+    // eslint-disable-next-line no-undef
+    path: './.env',
+  })
 
-  resolve: {
-    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
-  },
+  return {
+    output: {
+      publicPath: `http://localhost:${process.env?.PORT || 3000}/`,
+    },
 
-  devServer: {
-    port: 8080,
-    historyApiFallback: true,
-  },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+    },
 
-  module: {
-    rules: [
-      {
-        test: /\.m?js/,
-        type: 'javascript/auto',
-        resolve: {
-          fullySpecified: false,
+    devServer: {
+      port: process.env?.PORT || 3000,
+      historyApiFallback: true,
+    },
+
+    module: {
+      rules: [
+        {
+          test: /\.m?js/,
+          type: 'javascript/auto',
+          resolve: {
+            fullySpecified: false,
+          },
         },
-      },
-      {
-        test: /\.(css|s[ac]ss)$/i,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
-      },
-      {
-        test: /\.(ts|tsx|js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
+        {
+          test: /\.(css|s[ac]ss)$/i,
+          use: ['style-loader', 'css-loader', 'postcss-loader'],
         },
-      },
-      {
-        test: /\.js$/,
-        enforce: 'pre',
-        use: ['source-map-loader'],
-      },
+        {
+          test: /\.(ts|tsx|js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+          },
+        },
+        {
+          test: /\.js$/,
+          enforce: 'pre',
+          use: ['source-map-loader'],
+        },
+      ],
+    },
+
+    plugins: [
+      moduleFederationPlugin,
+      new HtmlWebPackPlugin({
+        template: './src/index.html',
+      }),
     ],
-  },
-
-  plugins: [
-    moduleFederationPlugin,
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-    }),
-  ],
+  }
 }
