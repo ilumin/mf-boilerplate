@@ -27,3 +27,5 @@ export const App = () => {
     </AppContainer>
   )
 }
+
+export default App
