@@ -2,7 +2,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const deps = require('./package.json').dependencies
 
 module.exports = new ModuleFederationPlugin({
-  name: 'base_boilerplate',
+  name: 'base_mf_boilerplate',
   filename: 'remoteEntry.js',
   remotes: {},
   exposes: {

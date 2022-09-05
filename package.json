@@ -1,5 +1,5 @@
 {
-  "name": "base-boilerplate",
+  "name": "base-mf-boilerplate",
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode production",
