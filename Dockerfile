@@ -1,4 +1,4 @@
-FROM gcr.io/rentspree-6789/rentspree-docker-base-image:node16-alpine as build-deps
+FROM node:16.3.0-alpine as build-deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY .npmrc .npmrc

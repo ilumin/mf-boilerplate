@@ -52,7 +52,7 @@ module.exports = (env, args) => {
     plugins: [
       moduleFederationPlugin,
       new HtmlWebPackPlugin({
-        template: './src/index.html',
+        template: './public/index.html',
       }),
     ],
   }
